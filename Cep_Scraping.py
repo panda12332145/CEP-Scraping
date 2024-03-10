@@ -26,7 +26,7 @@ if response.status_code == 200:
         for item in resultado_tupla:
             resultado_string += f'{item[0]}: {item[1]}\n'
 
-        webhook_url = "https://discord.com/api/webhooks/1196925705364193320/{Token}"
+        webhook_url = "https://discord.com/api/webhooks/{channel-ID}/{Token}"
         headers = {"Content-Type": "application/json"}
         payload = {"content": resultado_string}
         response_discord = requests.post(webhook_url, data=json.dumps(payload), headers=headers)
