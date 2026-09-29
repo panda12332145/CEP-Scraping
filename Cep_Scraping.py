@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 
@@ -26,7 +27,11 @@ if response.status_code == 200:
         for item in resultado_tupla:
             resultado_string += f'{item[0]}: {item[1]}\n'
 
-        webhook_url = "https://discord.com/api/webhooks/{channel-ID}/{Token}"
+        webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "")
+    if not webhook_url:
+        print(resultado_string)
+        print("\n[DICA] Defina DISCORD_WEBHOOK_URL para enviar o resultado ao Discord.")
+    else:
         headers = {"Content-Type": "application/json"}
         payload = {"content": resultado_string}
         response_discord = requests.post(webhook_url, data=json.dumps(payload), headers=headers)
